@@ -38,7 +38,7 @@ function shuffle(i) {
   return i;
 }
 
-let turnos = [];
+var turnos = [];
 let coincide = [];
 
 // $('.img').on('click',function(e){
@@ -54,40 +54,47 @@ $('img').on('click', function(e) {
   const index = $('img').index(this);
 
   const img = $('#' + id).attr('src', desordenado[index]);  //attr: atributo
+
   turnos.push({
     imagen: $('#' + id).attr('src'),
-    indice: index
+    id: id
   });
-  console.log(turnos);
 
   if (turnos.length == 2) {
-    if (turnos[0].imagen == turnos[1].imagen) {
+    if (turnos[0].imagen == turnos[1].imagen && turnos[0].id != turnos[1].id) {
       coincide.push(turnos[0]);
       coincide.push(turnos[1]);
       console.log(coincide);
 
       setTimeout(function () {
-        turnos[0].imagen = $('#' + id).attr('src', 'https://png.icons8.com/windows/1600/0063B1/verified-account');
-        turnos[1].imagen = $('#' + id).attr('src', 'https://png.icons8.com/windows/1600/0063B1/verified-account');
+        $('#' + turnos[0].id).attr('src', 'https://png.icons8.com/windows/1600/0063B1/verified-account');
+        $('#' + id).attr('src', 'https://png.icons8.com/windows/1600/0063B1/verified-account');
+        turnos = [];
+      }, 1000)
 
-      }, 1000)
-      turnos = [];
-      coincide = [];
     }else {
-      setTimeout(function () {
-        turnos[0].imagen = $('#' + id).attr('src', 'Recursos/default.png');
-        turnos[0].imagen = $('#' + id).attr('src', 'Recursos/default.png');
-      }, 1000)
-      turnos = [];
-      coincide = [];
+      if (turnos[0].id != turnos[1].id) {
+        setTimeout(function () {
+          $('#' + turnos[0].id).attr('src', 'Recursos/default.png');
+          $('#' + id).attr('src', 'Recursos/default.png');
+          turnos = [];
+          console.log(coincide);
+        }, 1000)
+      }
     }
 
     intentos--
     $('#triesLeft').html(intentos);
+
     if (intentos == 0) {
       const game = $('.game').html();
       const loser = $('.game').html('<div class="father"><h3>Perdiste :(</h3></div>');
     }
   }
+
+    if (coincide.length == 12) {
+      const game = $('.game').html();
+      const loser = $('.game').html('<div class="father"><h3>¡¡¡ G · A · N · A · S · T · E !!!</h3></div>');
+    }
 
 })
