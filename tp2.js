@@ -72,6 +72,9 @@ $('img').on('click', function(e) {
         turnos = [];
       }, 1000)
 
+      intentos--
+      $('#triesLeft').html(intentos);
+
     }else {
       if (turnos[0].id != turnos[1].id) {
         setTimeout(function () {
@@ -80,21 +83,23 @@ $('img').on('click', function(e) {
           turnos = [];
           console.log(coincide);
         }, 1000)
+
+        intentos--
+        $('#triesLeft').html(intentos);
+
+      }else {
+        turnos.splice(1, 1);
+        console.log(turnos);
       }
     }
 
-    intentos--
-    $('#triesLeft').html(intentos);
-
     if (intentos == 0) {
-      const game = $('.game').html();
-      const loser = $('.game').html('<div class="father"><h3>Perdiste :(</h3></div>');
+      $('.game').html('<div class="father"><h3>Perdiste :(</h3></div>');
     }
   }
 
     if (coincide.length == 12) {
-      const game = $('.game').html();
-      const loser = $('.game').html('<div class="father"><h3>¡¡¡ G · A · N · A · S · T · E !!!</h3></div>');
+      $('.game').html('<div class="father"><h3>¡¡¡ G · A · N · A · S · T · E !!!</h3></div>');
     }
 
-})
+});
